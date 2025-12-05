@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -7,17 +7,39 @@ import {
   Box,
   IconButton,
   TextField,
-  InputAdornment
+  InputAdornment,
+  Menu,
+  MenuItem,
+  Chip
 } from '@mui/material';
-import { Search, Code, GitHub } from '@mui/icons-material';
+import { Search, Code, GitHub, Category, KeyboardArrowDown } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { mockCategories } from '../data/mockData';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    // 实现搜索逻辑
+    if (searchTerm.trim()) {
+      navigate(`/categories?search=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm('');
+    }
+  };
+
+  const handleCategoryMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCategoryMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    navigate(`/categories/${categoryId}`);
+    handleCategoryMenuClose();
   };
 
   return (
@@ -45,6 +67,8 @@ const Header: React.FC = () => {
             size="small"
             placeholder="搜索MCP服务器..."
             variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -63,11 +87,27 @@ const Header: React.FC = () => {
           <Button color="inherit" onClick={() => navigate('/')}>
             浏览
           </Button>
-          <Button color="inherit" onClick={() => navigate('/categories')}>
+          <Button
+            color="inherit"
+            startIcon={<Category />}
+            endIcon={<KeyboardArrowDown />}
+            onClick={handleCategoryMenuOpen}
+          >
             分类
           </Button>
           <Button color="inherit" onClick={() => navigate('/submit')}>
-            提交
+            <Chip
+              label="提交"
+              size="small"
+              variant="outlined"
+              sx={{
+                color: 'inherit',
+                borderColor: 'inherit',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }
+              }}
+            />
           </Button>
           <IconButton
             color="inherit"
@@ -78,6 +118,33 @@ const Header: React.FC = () => {
             <GitHub />
           </IconButton>
         </Box>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleCategoryMenuClose}
+          PaperProps={{
+            sx: {
+              maxHeight: 300,
+              minWidth: 200,
+            }
+          }}
+        >
+          <MenuItem onClick={() => { navigate('/categories'); handleCategoryMenuClose(); }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+              全部分类
+            </Typography>
+          </MenuItem>
+          {mockCategories.map((category) => (
+            <MenuItem
+              key={category.id}
+              onClick={() => handleCategoryClick(category.id)}
+              sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+            >
+              {category.name}
+            </MenuItem>
+          ))}
+        </Menu>
       </Toolbar>
     </AppBar>
   );

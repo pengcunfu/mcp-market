@@ -36,3 +36,18 @@ export interface Review {
   date: string;
   helpful: number;
 }
+
+export interface CategoryStats {
+  id: string;
+  serverCount: number;
+  totalDownloads: number;
+  averageRating: number;
+  topServers: McpServer[];
+}
+
+export interface FilterOptions {
+  sortBy: 'name' | 'downloads' | 'rating' | 'updated';
+  sortOrder: 'asc' | 'desc';
+  category?: string;
+  tags?: string[];
+}

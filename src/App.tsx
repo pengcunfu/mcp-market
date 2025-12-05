@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import ServerDetailPage from './pages/ServerDetailPage';
+import CategoryPage from './pages/CategoryPage';
 import { Container } from '@mui/material';
 
 const theme = createTheme({
@@ -31,6 +32,8 @@ function App() {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/categories" element={<CategoryPage />} />
+            <Route path="/categories/:categoryId" element={<CategoryPage />} />
             <Route path="/server/:id" element={<ServerDetailPage />} />
           </Routes>
         </Container>
