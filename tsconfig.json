@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -13,14 +16,17 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": [
+      "vite/client",
+      "node"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "vite.config.ts"
   ]
 }
