@@ -1,6 +1,18 @@
-# MCP 市场
+# MCP Market
 
-基于 React 19 + TypeScript + Vite 的 MCP 服务器市场前端应用，使用 MUI 7 构建界面，React Router 7 管理路由。
+基于 React 19 + TypeScript + Vite 的 MCP Market 前端应用，汇集 MCP 服务器与 AI 技能，使用 MUI 7 构建界面，React Router 7 管理路由。
+
+## MySkills 技能
+
+本市场收录 [MySkills](https://github.com/pengcunfu/MySkills) 仓库中的技能，以下描述与链接均指向该仓库。
+
+| 技能 | 描述 | 仓库地址 |
+|------|------|----------|
+| [drawio](https://github.com/pengcunfu/MySkills/tree/main/drawio) | 生成 draw.io 图表，可导出 PNG/SVG/PDF（内嵌 XML，导出后仍可编辑） | [pengcunfu/MySkills](https://github.com/pengcunfu/MySkills) |
+| [git-commit](https://github.com/pengcunfu/MySkills/tree/main/git-commit) | 自动用中文提交 git 变更，遵循仓库约定，绝不附加 AI 署名/版权信息 | [pengcunfu/MySkills](https://github.com/pengcunfu/MySkills) |
+| [init-mysql-mcp](https://github.com/pengcunfu/MySkills/tree/main/init-mysql-mcp) | 初始化 MySQL MCP Server，配置连接参数并提供数据库查询、表结构查看等工具 | [pengcunfu/MySkills](https://github.com/pengcunfu/MySkills) |
+| [init-sqlite-mcp](https://github.com/pengcunfu/MySkills/tree/main/init-sqlite-mcp) | 初始化 SQLite MCP Server，配置连接参数并提供数据库查询、表结构查看等工具 | [pengcunfu/MySkills](https://github.com/pengcunfu/MySkills) |
+| [install-skills](https://github.com/pengcunfu/MySkills/tree/main/install-skills) | 安装技能包到 Claude Code / Cursor，支持 MySkills（可选技能）与 gstack（整包官方 setup） | [pengcunfu/MySkills](https://github.com/pengcunfu/MySkills) |
 
 ## 技术栈
 

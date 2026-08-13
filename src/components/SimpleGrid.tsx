@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { Box, BoxProps } from '@mui/material';
+
+const SimpleGridContext = createContext<number>(0);
 
 interface SimpleGridProps {
   children: React.ReactNode;
@@ -22,27 +24,33 @@ const SimpleGrid: React.FC<SimpleGridProps> = ({
   spacing = 0,
   sx = {}
 }) => {
+  const contextSpacing = useContext(SimpleGridContext);
+
   if (container) {
+    const gap = spacing * 8;
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          margin: `-${spacing / 2}px`,
-          ...sx
-        }}
-      >
-        {children}
-      </Box>
+      <SimpleGridContext.Provider value={spacing}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            margin: `-${gap / 2}px`,
+            ...sx
+          }}
+        >
+          {children}
+        </Box>
+      </SimpleGridContext.Provider>
     );
   }
 
   if (item) {
+    const gap = (spacing || contextSpacing) * 8;
     return (
       <Box
         sx={{
           width: '100%',
-          padding: `${spacing / 2}px`,
+          padding: `${gap / 2}px`,
           ...(xs === 12 && { flex: '0 0 100%' }),
           ...(xs && xs < 12 && {
             flex: `0 0 ${(xs / 12) * 100}%`,

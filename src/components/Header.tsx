@@ -9,15 +9,15 @@ import {
   TextField,
   InputAdornment,
   Menu,
-  MenuItem,
-  Chip
+  MenuItem
 } from '@mui/material';
 import { Search, Code, GitHub, Category, KeyboardArrowDown } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { mockCategories } from '../data/mockData';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
             sx={{ cursor: 'pointer', fontWeight: 'bold' }}
             onClick={() => navigate('/')}
           >
-            MCP 市场
+            MCP Market
           </Typography>
         </Box>
 
@@ -84,8 +84,19 @@ const Header: React.FC = () => {
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button color="inherit" onClick={() => navigate('/')}>
-            浏览
+          <Button
+            color="inherit"
+            onClick={() => navigate('/mcp')}
+            sx={location.pathname.startsWith('/mcp') ? { bgcolor: 'rgba(255, 255, 255, 0.15)' } : undefined}
+          >
+            MCP
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => navigate('/skills')}
+            sx={location.pathname.startsWith('/skills') ? { bgcolor: 'rgba(255, 255, 255, 0.15)' } : undefined}
+          >
+            Skills
           </Button>
           <Button
             color="inherit"
@@ -94,20 +105,6 @@ const Header: React.FC = () => {
             onClick={handleCategoryMenuOpen}
           >
             分类
-          </Button>
-          <Button color="inherit" onClick={() => navigate('/submit')}>
-            <Chip
-              label="提交"
-              size="small"
-              variant="outlined"
-              sx={{
-                color: 'inherit',
-                borderColor: 'inherit',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                }
-              }}
-            />
           </Button>
           <IconButton
             color="inherit"

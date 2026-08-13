@@ -16,7 +16,7 @@ import {
   Select,
   MenuItem,
   Paper,
-  Avatar
+  Avatar,
 } from '@mui/material';
 import SimpleGrid from '../components/SimpleGrid';
 import {
@@ -27,13 +27,16 @@ import {
   NewReleases,
   LocalFireDepartment,
   Explore,
-  Add
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { mockServers, mockCategories } from '../data/mockData';
 import { McpServer } from '../types';
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  type: 'skill' | 'mcp';
+}
+
+const HomePage: React.FC<HomePageProps> = ({ type }) => {
   const navigate = useNavigate();
   const [tabValue, setTabValue] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -43,23 +46,26 @@ const HomePage: React.FC = () => {
     setTabValue(newValue);
   };
 
-  const filteredServers = mockServers.filter(server => {
-    if (selectedCategory === 'all') return true;
-    return server.category === selectedCategory;
-  }).sort((a, b) => {
-    switch (sortBy) {
-      case 'popular':
-        return b.downloads - a.downloads;
-      case 'rating':
-        return b.rating - a.rating;
-      case 'recent':
-        return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
-      default:
-        return 0;
-    }
-  });
+  const typeServers = mockServers.filter(server => server.type === type);
+  const availableCategories = mockCategories.filter(category =>
+    typeServers.some(server => server.category === category.id)
+  );
 
-  
+  const filteredServers = typeServers
+    .filter(server => selectedCategory === 'all' || server.category === selectedCategory)
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'popular':
+          return b.downloads - a.downloads;
+        case 'rating':
+          return b.rating - a.rating;
+        case 'recent':
+          return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+        default:
+          return 0;
+      }
+    });
+
   const ServerCard: React.FC<{ server: McpServer }> = ({ server }) => (
     <Card
       sx={{
@@ -187,10 +193,12 @@ const HomePage: React.FC = () => {
         }}
       >
         <Typography variant="h3" component="h1" gutterBottom fontWeight="bold">
-          MCP 服务器市场
+          {type === 'skill' ? 'AI 技能市场' : 'MCP 服务器市场'}
         </Typography>
         <Typography variant="h6" paragraph>
-          发现、分享和管理强大的 MCP 服务器
+          {type === 'skill'
+            ? '发现并安装来自 MySkills 的开源技能'
+            : '发现、分享和管理强大的 MCP 服务器'}
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
           <Button
@@ -199,15 +207,7 @@ const HomePage: React.FC = () => {
             startIcon={<Explore />}
             sx={{ bgcolor: 'white', color: 'primary.main', '&:hover': { bgcolor: 'grey.100' } }}
           >
-            浏览服务器
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            startIcon={<Add />}
-            sx={{ borderColor: 'white', color: 'white', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.1)' } }}
-          >
-            提交服务器
+            {type === 'skill' ? '浏览技能' : '浏览服务器'}
           </Button>
         </Box>
       </Paper>
@@ -217,17 +217,17 @@ const HomePage: React.FC = () => {
         <SimpleGrid item xs={12} sm={3}>
           <Paper sx={{ p: 2, textAlign: 'center' }}>
             <Typography variant="h4" color="primary" fontWeight="bold">
-              {mockServers.length}
+              {typeServers.length}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              服务器总数
+              {type === 'skill' ? '技能总数' : '服务器总数'}
             </Typography>
           </Paper>
         </SimpleGrid>
         <SimpleGrid item xs={12} sm={3}>
           <Paper sx={{ p: 2, textAlign: 'center' }}>
             <Typography variant="h4" color="primary" fontWeight="bold">
-              {mockServers.reduce((sum, s) => sum + s.downloads, 0).toLocaleString()}
+              {typeServers.reduce((sum, s) => sum + s.downloads, 0).toLocaleString()}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               总下载量
@@ -237,7 +237,7 @@ const HomePage: React.FC = () => {
         <SimpleGrid item xs={12} sm={3}>
           <Paper sx={{ p: 2, textAlign: 'center' }}>
             <Typography variant="h4" color="primary" fontWeight="bold">
-              {mockCategories.length}
+              {availableCategories.length}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               分类数量
@@ -247,7 +247,7 @@ const HomePage: React.FC = () => {
         <SimpleGrid item xs={12} sm={3}>
           <Paper sx={{ p: 2, textAlign: 'center' }}>
             <Typography variant="h4" color="primary" fontWeight="bold">
-              {(mockServers.reduce((sum, s) => sum + s.rating, 0) / mockServers.length).toFixed(1)}
+              {(typeServers.reduce((sum, s) => sum + s.rating, 0) / (typeServers.length || 1)).toFixed(1)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               平均评分
@@ -261,7 +261,7 @@ const HomePage: React.FC = () => {
         热门分类
       </Typography>
       <SimpleGrid container spacing={2} sx={{ mb: 4 }}>
-        {mockCategories.map((category) => (
+        {availableCategories.map((category) => (
           <SimpleGrid item xs={12} sm={6} md={4} key={category.id}>
             <Paper
               sx={{
@@ -294,7 +294,10 @@ const HomePage: React.FC = () => {
       {/* Tabs and Filters */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs value={tabValue} onChange={handleTabChange}>
-          <Tab label="热门服务器" icon={<LocalFireDepartment />} />
+          <Tab
+            label={type === 'skill' ? '热门技能' : '热门服务器'}
+            icon={<LocalFireDepartment />}
+          />
           <Tab label="最新发布" icon={<NewReleases />} />
           <Tab label="趋势上升" icon={<TrendingUp />} />
         </Tabs>
@@ -309,7 +312,7 @@ const HomePage: React.FC = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
             <MenuItem value="all">全部分类</MenuItem>
-            {mockCategories.map((cat) => (
+            {availableCategories.map((cat) => (
               <MenuItem key={cat.id} value={cat.id}>
                 {cat.name}
               </MenuItem>

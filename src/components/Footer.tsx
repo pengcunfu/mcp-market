@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Code />
               <Typography variant="h6" color="inherit">
-                MCP 市场
+                MCP Market
               </Typography>
             </Box>
             <Typography variant="body2" color="grey.500" sx={{ mt: 1 }}>
@@ -54,14 +54,6 @@ const Footer: React.FC = () => {
                 分类浏览
               </Link>
               <Link
-                component={RouterLink}
-                to="/submit"
-                color="inherit"
-                underline="hover"
-              >
-                提交服务器
-              </Link>
-              <Link
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -79,7 +71,7 @@ const Footer: React.FC = () => {
         <Divider sx={{ borderColor: 'grey.700', my: 2 }} />
 
         <Typography variant="body2" color="grey.500" align="center">
-          © {new Date().getFullYear()} MCP 市场 · 基于 React 与 MUI 构建
+          © {new Date().getFullYear()} MCP Market · 基于 React 与 MUI 构建
         </Typography>
       </Container>
     </Box>

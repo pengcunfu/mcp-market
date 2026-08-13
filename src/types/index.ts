@@ -1,5 +1,6 @@
 export interface McpServer {
   id: string;
+  type: 'skill' | 'mcp';
   name: string;
   description: string;
   author: string;

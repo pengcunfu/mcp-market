@@ -12,6 +12,7 @@ export const mockCategories: McpCategory[] = [
 export const mockServers: McpServer[] = [
   {
     id: '1',
+    type: 'mcp',
     name: 'GitHub Assistant',
     description: '强大的GitHub代码仓库管理助手，支持代码审查、问题跟踪和项目管理',
     author: 'DevTools Team',
@@ -57,6 +58,7 @@ npm install github-assistant
   },
   {
     id: '2',
+    type: 'mcp',
     name: 'Data Analyzer Pro',
     description: '专业的数据分析工具，支持多种数据格式的导入、清洗和可视化',
     author: 'DataSoft Inc.',
@@ -81,6 +83,7 @@ npm install github-assistant
   },
   {
     id: '3',
+    type: 'mcp',
     name: 'AI Code Companion',
     description: '智能代码助手，提供代码补全、重构建议和最佳实践指导',
     author: 'AI Labs',
@@ -105,6 +108,7 @@ npm install github-assistant
   },
   {
     id: '4',
+    type: 'mcp',
     name: 'Team Chat Hub',
     description: '集成多个通讯平台的统一聊天工具，支持Slack、Discord、Teams等',
     author: 'ConnectCorp',
@@ -129,6 +133,7 @@ npm install github-assistant
   },
   {
     id: '5',
+    type: 'mcp',
     name: 'Task Master Pro',
     description: '专业的任务管理工具，支持敏捷开发、看板管理和甘特图',
     author: 'Productivity Plus',
@@ -153,6 +158,7 @@ npm install github-assistant
   },
   {
     id: '6',
+    type: 'mcp',
     name: 'System Monitor Elite',
     description: '全面的系统监控解决方案，实时跟踪服务器性能和应用健康状态',
     author: 'SysWatch Technologies',
@@ -174,6 +180,151 @@ npm install github-assistant
       '自定义仪表板',
       '健康检查'
     ]
+  },
+  {
+    id: 'myskills-drawio',
+    type: 'skill',
+    name: 'drawio',
+    description: '生成 draw.io 图表：原生 .drawio 文件，可导出 PNG/SVG/PDF（内嵌 XML，导出后仍可编辑）',
+    author: 'pengcunfu',
+    version: '1.0.0',
+    category: 'development',
+    tags: ['drawio', 'diagram', 'mcp'],
+    downloads: 3280,
+    rating: 4.8,
+    reviews: 36,
+    repository: 'https://github.com/pengcunfu/MySkills/tree/main/drawio',
+    documentation: 'https://github.com/pengcunfu/MySkills/tree/main/drawio',
+    license: '开源',
+    lastUpdated: '2026-08-13',
+    dependencies: ['draw.io CLI（可选，用于导出）'],
+    features: [
+      '生成原生 .drawio 文件',
+      '导出 PNG/SVG/PDF 且内嵌 XML',
+      '导出文件仍可在 draw.io 中编辑',
+      '支持流程图、ER 图、架构图等'
+    ],
+    readme: `# drawio
+
+来自 [MySkills](https://github.com/pengcunfu/MySkills) 仓库的技能：生成 draw.io 图表。
+
+支持输出原生 \`.drawio\` 文件，或导出为 PNG / SVG / PDF（内嵌 XML，导出后仍可在 draw.io 中编辑）。`
+  },
+  {
+    id: 'myskills-git-commit',
+    type: 'skill',
+    name: 'git-commit',
+    description: '自动用中文提交 git 变更，遵循仓库约定；绝不附加任何 AI 署名/版权信息',
+    author: 'pengcunfu',
+    version: '1.0.0',
+    category: 'development',
+    tags: ['git', 'commit', '中文提交'],
+    downloads: 5210,
+    rating: 4.9,
+    reviews: 48,
+    repository: 'https://github.com/pengcunfu/MySkills/tree/main/git-commit',
+    documentation: 'https://github.com/pengcunfu/MySkills/tree/main/git-commit',
+    license: '开源',
+    lastUpdated: '2026-08-12',
+    dependencies: ['git'],
+    features: [
+      '自动审阅改动并暂存',
+      '生成中文 commit message（类型: 描述）',
+      '遵循仓库历史提交约定',
+      '绝不附加 Co-Authored-By 等 AI 署名'
+    ],
+    readme: `# git-commit
+
+来自 [MySkills](https://github.com/pengcunfu/MySkills) 仓库的技能：中文自动提交 git 变更。
+
+触发词：「提交git」「git提交」「commit」「提交代码」。适用于 Claude Code 与 Cursor。`
+  },
+  {
+    id: 'myskills-init-mysql-mcp',
+    type: 'skill',
+    name: 'init-mysql-mcp',
+    description: '初始化 MySQL MCP Server：配置连接参数，提供数据库查询、表结构查看等工具',
+    author: 'pengcunfu',
+    version: '1.0.0',
+    category: 'data',
+    tags: ['mysql', 'database', 'mcp'],
+    downloads: 2680,
+    rating: 4.7,
+    reviews: 22,
+    repository: 'https://github.com/pengcunfu/MySkills/tree/main/init-mysql-mcp',
+    documentation: 'https://github.com/pengcunfu/MySkills/tree/main/init-mysql-mcp',
+    license: '开源',
+    lastUpdated: '2026-08-11',
+    dependencies: ['mysql-mcp-server.exe'],
+    features: [
+      '自动下载 MySQL MCP Server 二进制',
+      '配置项目 MCP 连接参数',
+      '提供数据库查询、表结构查看等工具',
+      '检查并更新已有配置'
+    ],
+    readme: `# init-mysql-mcp
+
+来自 [MySkills](https://github.com/pengcunfu/MySkills) 仓库的技能：初始化 MySQL MCP Server。
+
+用于安装、配置或更新 MySQL MCP 连接参数，提供数据库查询、表结构查看等工具。`
+  },
+  {
+    id: 'myskills-init-sqlite-mcp',
+    type: 'skill',
+    name: 'init-sqlite-mcp',
+    description: '初始化 SQLite MCP Server：配置连接参数，提供数据库查询、表结构查看等工具',
+    author: 'pengcunfu',
+    version: '1.0.0',
+    category: 'data',
+    tags: ['sqlite', 'database', 'mcp'],
+    downloads: 2450,
+    rating: 4.7,
+    reviews: 20,
+    repository: 'https://github.com/pengcunfu/MySkills/tree/main/init-sqlite-mcp',
+    documentation: 'https://github.com/pengcunfu/MySkills/tree/main/init-sqlite-mcp',
+    license: '开源',
+    lastUpdated: '2026-08-11',
+    dependencies: ['sqlite-mcp-server.exe'],
+    features: [
+      '自动下载 SQLite MCP Server 二进制',
+      '配置项目 MCP 连接参数',
+      '提供数据库查询、表结构查看等工具',
+      '检查并更新已有配置'
+    ],
+    readme: `# init-sqlite-mcp
+
+来自 [MySkills](https://github.com/pengcunfu/MySkills) 仓库的技能：初始化 SQLite MCP Server。
+
+用于安装、配置或更新 SQLite MCP 连接参数，提供数据库查询、表结构查看等工具。`
+  },
+  {
+    id: 'myskills-install-skills',
+    type: 'skill',
+    name: 'install-skills',
+    description: '安装技能包到 Claude Code / Cursor：支持 MySkills（可选技能）与 gstack（整包官方 setup）',
+    author: 'pengcunfu',
+    version: '1.0.0',
+    category: 'development',
+    tags: ['install', 'skills', 'claude', 'cursor'],
+    downloads: 4100,
+    rating: 4.6,
+    reviews: 30,
+    repository: 'https://github.com/pengcunfu/MySkills/tree/main/install-skills',
+    documentation: 'https://github.com/pengcunfu/MySkills/tree/main/install-skills',
+    license: '开源',
+    lastUpdated: '2026-08-10',
+    dependencies: ['git', 'bun（gstack 需要）', 'bash（Windows 下 gstack 需要）'],
+    features: [
+      '安装 MySkills 可选技能',
+      '整包安装 gstack（官方 setup 流程）',
+      '目标可选 Claude Code / Cursor / both',
+      '用户无需手动 clone'
+    ],
+    readme: `# install-skills
+
+来自 [MySkills](https://github.com/pengcunfu/MySkills) 仓库的技能：统一安装技能包。
+
+支持 MySkills（可选单个技能）与 gstack（整包官方 setup），目标环境为 Claude Code 和/或 Cursor。`
   }
 ];
 
