@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ServerDetailPage from './pages/ServerDetailPage';
 import CategoryPage from './pages/CategoryPage';
@@ -37,6 +38,7 @@ function App() {
             <Route path="/server/:id" element={<ServerDetailPage />} />
           </Routes>
         </Container>
+        <Footer />
       </Router>
     </ThemeProvider>
   );
